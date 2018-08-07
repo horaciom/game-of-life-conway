@@ -1,0 +1,163 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Game of life</title>
+    <style>
+        body {
+            background: #ccc;
+        }
+
+        #wrapper {
+            width: 640px;
+            margin: 0 auto;
+        }
+
+        #wrapper > .cell {
+            width: 14px;
+            height: 14px;
+            border: solid 1px #fff;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        #wrapper > .cell.active {
+            background: #fff;
+        }
+        .footer{
+            width: 640px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+</div>
+<div class="footer">
+    <a href="#" id="start"> Start </a>
+    <a href="#" id="pause"> Pause </a>
+</div>
+<script>
+    const wrapper = document.getElementById("wrapper");
+    const numberOfCells = 40;
+    const numberOfRows = 40;
+    const arrayMap = numberOfCells * numberOfRows;
+    let running = false;
+    let loop = null;
+
+    const handleClick = function (el) {
+        el.target.classList.toggle('active');
+    };
+
+    const renderCell = function () {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.onclick = handleClick;
+        wrapper.appendChild(cell);
+    };
+
+    for (let i = 0; i < arrayMap; i++) {
+        renderCell();
+    }
+
+    const isActive = function (element) {
+        return element.classList.contains('active');
+    };
+
+    const getNeighbours = function (index, targetCell, cells) {
+
+        const prevIndex = index - numberOfCells;
+        const nextIndex = index + numberOfCells;
+
+        const prevCell = cells[prevIndex];
+        const prevCellPrevSiblig = prevCell ? prevCell.previousSibling : null;
+        const prevCellNextSiblig = prevCell ? prevCell.nextSibling : null;
+
+        const currentPrevSibling = targetCell.previousSibling;
+        const currentNextSibling = targetCell.nextSibling;
+
+        const nextCell = cells[nextIndex];
+        const nextCellPrevSiblig = nextCell ? nextCell.previousSibling : null;
+        const nextCellNextSiblig = nextCell ? nextCell.nextSibling : null;
+
+        return [
+            prevCell,
+            prevCellPrevSiblig,
+            prevCellNextSiblig,
+            currentPrevSibling,
+            currentNextSibling,
+            nextCell,
+            nextCellPrevSiblig,
+            nextCellNextSiblig,
+        ]
+    };
+
+    const handleRules = function (cell, neighbours) {
+
+        const neighboursActive = neighbours.map(e => e && e.classList ? (e.classList.contains('active')) : false).filter(e => (e));
+
+        if (isActive(cell) && neighboursActive.length < 2) {
+            //console.log('Cualquier celda viva con menos de dos vecinos vivos muere, como por debajo de la población.');
+            cell.classList.remove('active');
+            return;
+        }
+
+        if (isActive(cell) && neighboursActive.length === 2 || isActive(cell) && neighboursActive.length === 3) {
+            //console.log('Cualquier célula viva con dos o tres vecinos vivos vive para la próxima generación.');
+            return;
+        }
+
+        if (isActive(cell) && neighboursActive.length > 3) {
+           // console.log('Cualquier célula viva con más de tres vecinos vivos muere, como por sobrepoblación.');
+            cell.classList.remove('active');
+            return;
+        }
+
+        if (!isActive(cell) && neighboursActive.length === 3) {
+            //console.log('Cualquier celda muerta con exactamente tres vecinos vivos se convierte en una célula viva, como por reproducción.');
+            cell.classList.add('active');
+        }
+
+    };
+
+    const init = function () {
+        const cells = wrapper.getElementsByTagName('div');
+        for (let i = 0; i < cells.length; i++) {
+            const targetCell = cells[i];
+            const neighbours = getNeighbours(i, targetCell, cells);
+            handleRules(targetCell, neighbours);
+        }
+    };
+
+    const startGame = function (e) {
+        e.preventDefault();
+        if (!running) {
+            running = true;
+            loop = setInterval(init, 1000);
+        }
+    };
+
+    const pauseGame = function (e) {
+        e.preventDefault();
+        if(running){
+            running = false;
+            clearInterval(loop);
+        }
+    };
+
+    const startButton = document.getElementById("start");
+    const pauseButton = document.getElementById("pause");
+    startButton.onclick = startGame;
+    pauseButton.onclick = pauseGame;
+
+
+</script>
+</body>
+
+</html>
