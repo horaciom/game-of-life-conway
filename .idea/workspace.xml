@@ -14,8 +14,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/Desktop/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4">
-              <caret line="136" selection-start-line="136" selection-end-line="136" />
+            <state relative-caret-position="178">
+              <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -26,6 +26,7 @@
     <findStrings>
       <find>cells</find>
       <find>previousSibling</find>
+      <find>nextCellPrevSiblig</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -98,15 +99,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1533251452045</updated>
-      <workItem from="1533251453926" duration="15701000" />
+      <workItem from="1533251453926" duration="16203000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15701000" />
+    <option name="totallyTimeSpent" value="16203000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24947146" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -148,8 +150,8 @@
     </entry>
     <entry file="file://$USER_HOME$/Desktop/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4">
-          <caret line="136" selection-start-line="136" selection-end-line="136" />
+        <state relative-caret-position="178">
+          <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
         </state>
       </provider>
     </entry>
